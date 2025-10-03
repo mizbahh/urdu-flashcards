@@ -1,8 +1,8 @@
 # Web Development Project 2 - *Urdu Flashcards*
 
-Submitted by: **Your Name Here**
+Submitted by: **Mizbah Ateeqe**
 
-This web app: **insert description**
+This web app: **Allows you to learn 10 essential words in Urdu**
 
 Time spent: **3** hours spent in total
 
