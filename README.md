@@ -2,7 +2,7 @@
 
 Submitted by: **Mizbah Ateeq**
 
-This web app: **Allows you to learn 10 essential words in Urdu**
+This web app: **Learn 10 essential words in Urdu**
 
 Time spent: **3** hours spent in total
 
