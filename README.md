@@ -1,6 +1,6 @@
 # Web Development Project 2 - *Urdu Flashcards*
 
-Submitted by: **Mizbah Ateeqe**
+Submitted by: **Mizbah Ateeq**
 
 This web app: **Allows you to learn 10 essential words in Urdu**
 
