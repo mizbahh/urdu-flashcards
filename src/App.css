@@ -1,42 +1,205 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+.app-container {
+  background: #c9d6c7;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.content-wrapper {
+  max-width: 800px;
+  width: 100%;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.title {
+  font-size: 48px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #4a5f4c;
+}
+
+.subtitle {
+  font-size: 18px;
+  color: #6b8e6f;
+  margin-bottom: 15px;
+}
+
+.streak-container {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-bottom: 15px;
+}
+
+.streak-text {
+  font-size: 16px;
+  color: #4a5f4c;
+  font-weight: 600;
+}
+
+.card-counter {
+  font-size: 16px;
+  color: #6b8e6f;
+  font-weight: 600;
+}
+
+.flashcard {
+  border-radius: 15px;
+  padding: 60px 40px;
+  cursor: pointer;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s;
+}
+
+.flashcard-front {
+  background: white;
+  border: 3px solid #8a9d8b;
+}
+
+.flashcard-back {
+  background: #8a9d8b;
+  border: 3px solid #8a9d8b;
+}
+
+.flashcard-correct {
+  background: #a8d5a8;
+  border: 3px solid #4a8a4a;
+}
+
+.flashcard-incorrect {
+  background: #d5a8a8;
+  border: 3px solid #8a4a4a;
+}
+
+.card-content {
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.urdu-text {
+  font-size: 72px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #2d3e2f;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.pronunciation-text {
+  font-size: 36px;
+  font-weight: bold;
+  color: #4a5f4c;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.english-text {
+  font-size: 52px;
+  font-weight: bold;
+  color: white;
 }
 
-.card {
-  padding: 2em;
+.input-container {
+  margin-bottom: 20px;
+  text-align: center;
 }
 
-.read-the-docs {
-  color: #888;
+.answer-input {
+  padding: 12px 20px;
+  font-size: 18px;
+  border-radius: 10px;
+  border: 2px solid #8a9d8b;
+  width: 60%;
+  margin-right: 10px;
+}
+
+.submit-button {
+  background: #8a9d8b;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  padding: 12px 30px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.submit-button:hover {
+  opacity: 0.9;
+}
+
+.navigation-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.nav-button {
+  background: #8a9d8b;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  padding: 15px 30px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  opacity: 1;
+}
+
+.nav-button:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.nav-button:disabled {
+  background: #d0d0d0;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.shuffle-container {
+  text-align: center;
+}
+
+.shuffle-button {
+  background: #6b8e6f;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  padding: 12px 30px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.shuffle-button:hover {
+  opacity: 0.9;
 }

@@ -16,105 +16,143 @@ export default function UrduFlashcards() {
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
+  const [userGuess, setUserGuess] = useState('');
+  const [feedback, setFeedback] = useState('');
+  const [currentStreak, setCurrentStreak] = useState(0);
+  const [longestStreak, setLongestStreak] = useState(0);
 
   const handleFlip = () => {
     setIsFlipped(!isFlipped);
   };
 
   const handleNext = () => {
+    if (currentIndex < cardSet.length - 1) {
+      setCurrentIndex(currentIndex + 1);
+      setIsFlipped(false);
+      setUserGuess('');
+      setFeedback('');
+    }
+  };
+
+  const handlePrevious = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1);
+      setIsFlipped(false);
+      setUserGuess('');
+      setFeedback('');
+    }
+  };
+
+  const handleShuffle = () => {
+    const shuffled = [...cardSet].sort(() => Math.random() - 0.5);
+    cardSet.splice(0, cardSet.length, ...shuffled);
+    setCurrentIndex(0);
     setIsFlipped(false);
-    const randomIndex = Math.floor(Math.random() * cardSet.length);
-    setCurrentIndex(randomIndex);
+    setUserGuess('');
+    setFeedback('');
+  };
+
+  const checkAnswer = () => {
+    const currentCard = cardSet[currentIndex];
+    const correctAnswer = currentCard.english.toLowerCase().trim();
+    const guess = userGuess.toLowerCase().trim();
+
+    // ADD THESE 3 LINES:
+    if (guess === '') {
+      return;
+    }
+
+    const cleanCorrect = correctAnswer.replace(/[^\w\s]/g, '');
+    const cleanGuess = guess.replace(/[^\w\s]/g, '');
+
+
+
+    if (cleanCorrect === cleanGuess || cleanCorrect.includes(cleanGuess) || cleanGuess.includes(cleanCorrect)) {
+      setFeedback('correct');
+      const newStreak = currentStreak + 1;
+      setCurrentStreak(newStreak);
+      if (newStreak > longestStreak) {
+        setLongestStreak(newStreak);
+      }
+    } else {
+      setFeedback('incorrect');
+      setCurrentStreak(0);
+    }
+  };
+
+  const getCardClass = () => {
+    if (isFlipped) return 'flashcard flashcard-back';
+    if (feedback === 'correct') return 'flashcard flashcard-correct';
+    if (feedback === 'incorrect') return 'flashcard flashcard-incorrect';
+    return 'flashcard flashcard-front';
   };
 
   const currentCard = cardSet[currentIndex];
 
   return (
-    <div style={{ 
-      background: '#c9d6c7',
-      minHeight: '100vh',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: '20px'
-    }}>
-      <div style={{ maxWidth: '800px', width: '100%' }}>
-        <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-          <h1 style={{ 
-            fontSize: '48px', 
-            fontWeight: 'bold', 
-            marginBottom: '15px',
-            color: '#4a5f4c'
-          }}>
-            learn urdu
-          </h1>
-          <p style={{ fontSize: '18px', color: '#6b8e6f', marginBottom: '8px' }}>
-            master 10 essential urdu words
-          </p>
-          <p style={{ fontSize: '16px', color: '#6b8e6f', fontWeight: '600' }}>
-            card {currentIndex + 1} of {cardSet.length}
-          </p>
+    <div className="app-container">
+      <div className="content-wrapper">
+        <div className="header">
+          <h1 className="title">learn urdu</h1>
+          <p className="subtitle">master 10 essential urdu words</p>
+          <div className="streak-container">
+            <p className="streak-text">current streak: {currentStreak}</p>
+            <p className="streak-text">longest streak: {longestStreak}</p>
+          </div>
+          <p className="card-counter">card {currentIndex + 1} of {cardSet.length}</p>
         </div>
 
-        <div 
-          onClick={handleFlip}
-          style={{
-            background: isFlipped ? '#8a9d8b' : 'white',
-            border: '3px solid #8a9d8b',
-            borderRadius: '15px',
-            padding: '80px 40px',
-            cursor: 'pointer',
-            minHeight: '350px',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            marginBottom: '30px',
-            boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
-          }}
-        >
+        <div className={getCardClass()} onClick={handleFlip}>
           {!isFlipped ? (
-            <div style={{ textAlign: 'center' }}>
-              <div style={{ 
-                fontSize: '72px', 
-                fontWeight: 'bold', 
-                marginBottom: '15px',
-                color: '#2d3e2f'
-              }}>
-                {currentCard.urdu}
-              </div>
-              <div style={{ 
-                fontSize: '36px', 
-                fontWeight: 'bold', 
-                color: '#4a5f4c'
-              }}>
-                {currentCard.pronunciation}
-              </div>
+            <div className="card-content">
+              <div className="urdu-text">{currentCard.urdu}</div>
+              <div className="pronunciation-text">{currentCard.pronunciation}</div>
             </div>
           ) : (
-            <div style={{ textAlign: 'center', color: 'white' }}>
-              <div style={{ fontSize: '52px', fontWeight: 'bold' }}>
-                {currentCard.english}
-              </div>
+            <div className="card-content">
+              <div className="english-text">{currentCard.english}</div>
             </div>
           )}
         </div>
 
-        <div style={{ textAlign: 'center' }}>
+        <div className="input-container">
+          <input
+            type="text"
+            value={userGuess}
+            onChange={(e) => setUserGuess(e.target.value)}
+            placeholder="type your answer here..."
+            className="answer-input"
+            onKeyPress={(e) => {
+              if (e.key === 'Enter') {
+                checkAnswer();
+              }
+            }}
+          />
+          <button onClick={checkAnswer} className="submit-button">
+            submit
+          </button>
+        </div>
+
+        <div className="navigation-buttons">
+          <button
+            onClick={handlePrevious}
+            disabled={currentIndex === 0}
+            className="nav-button"
+          >
+            ← previous
+          </button>
           <button
             onClick={handleNext}
-            style={{
-              background: '#8a9d8b',
-              color: 'white',
-              fontWeight: 'bold',
-              fontSize: '18px',
-              padding: '15px 40px',
-              borderRadius: '10px',
-              border: 'none',
-              cursor: 'pointer'
-            }}
+            disabled={currentIndex === cardSet.length - 1}
+            className="nav-button"
           >
-            next card →
+            next →
+          </button>
+        </div>
+
+        <div className="shuffle-container">
+          <button onClick={handleShuffle} className="shuffle-button">
+            🔀 shuffle cards
           </button>
         </div>
       </div>
